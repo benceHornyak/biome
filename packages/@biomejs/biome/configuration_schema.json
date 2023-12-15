@@ -1221,6 +1221,13 @@
 						{ "type": "null" }
 					]
 				},
+				"useImportType": {
+					"description": "Promotes the use of import type for types.",
+					"anyOf": [
+						{ "$ref": "#/definitions/RuleConfiguration" },
+						{ "type": "null" }
+					]
+				},
 				"useRegexLiterals": {
 					"description": "Enforce the use of the regular expression literals instead of the RegExp constructor if possible.",
 					"anyOf": [

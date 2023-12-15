@@ -1,6 +1,6 @@
 use crate::{
     inner_string_text, AnyJsBinding, AnyJsImportClause, AnyJsNamedImportSpecifier, JsImport,
-    JsModuleSource, JsSyntaxToken,
+    JsImportAssertion, JsModuleSource, JsSyntaxToken,
 };
 use biome_rowan::{AstNode, SyntaxResult, TokenText};
 
@@ -63,6 +63,16 @@ impl AnyJsImportClause {
             Self::JsImportNamedClause(clause) => clause.source(),
             Self::JsImportNamespaceClause(clause) => clause.source(),
             Self::JsImportCombinedClause(clause) => clause.source(),
+        }
+    }
+
+    pub fn assertion(&self) -> Option<JsImportAssertion> {
+        match self {
+            Self::JsImportBareClause(clause) => clause.assertion(),
+            Self::JsImportDefaultClause(clause) => clause.assertion(),
+            Self::JsImportNamedClause(clause) => clause.assertion(),
+            Self::JsImportNamespaceClause(clause) => clause.assertion(),
+            Self::JsImportCombinedClause(clause) => clause.assertion(),
         }
     }
 }
@@ -135,6 +145,16 @@ impl AnyJsNamedImportSpecifier {
             Self::JsBogusNamedImportSpecifier(_) => None,
             Self::JsNamedImportSpecifier(specifier) => specifier.local_name().ok(),
             Self::JsShorthandNamedImportSpecifier(specifier) => specifier.local_name().ok(),
+        }
+    }
+
+    pub fn with_type_token(self, type_token: Option<JsSyntaxToken>) -> AnyJsNamedImportSpecifier {
+        match self {
+            Self::JsBogusNamedImportSpecifier(_) => self,
+            Self::JsNamedImportSpecifier(specifier) => specifier.with_type_token(type_token).into(),
+            Self::JsShorthandNamedImportSpecifier(specifier) => {
+                specifier.with_type_token(type_token).into()
+            }
         }
     }
 }

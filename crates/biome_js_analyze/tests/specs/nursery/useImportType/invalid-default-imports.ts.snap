@@ -1,0 +1,32 @@
+---
+source: crates/biome_js_analyze/tests/spec_tests.rs
+expression: invalid-default-imports.ts
+---
+# Input
+```js
+import A from ""
+type AA = A;
+export { type A };
+type AAA = typeof A;
+let a: A;
+```
+
+# Diagnostics
+```
+invalid-default-imports.ts:1:1 lint/nursery/useImportType  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Some imports are only used as a type.
+  
+  > 1 │ import A from ""
+      │ ^^^^^^^^^^^^^^^^
+    2 │ type AA = A;
+    3 │ export { type A };
+  
+  i Safe fix: Use import type.
+  
+    1 │ import·type·A·from·""
+      │        +++++         
+
+```
+
+

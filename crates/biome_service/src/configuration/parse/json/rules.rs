@@ -995,6 +995,10 @@ impl Deserializable for Nursery {
                                 diagnostics,
                             );
                         }
+                        "useImportType" => {
+                            result.use_import_type =
+                                Deserializable::deserialize(&value, "useImportType", diagnostics);
+                        }
                         "useRegexLiterals" => {
                             result.use_regex_literals = Deserializable::deserialize(
                                 &value,
@@ -1038,6 +1042,7 @@ impl Deserializable for Nursery {
                                     "useForOf",
                                     "useGroupedTypeImport",
                                     "useImportRestrictions",
+                                    "useImportType",
                                     "useRegexLiterals",
                                     "useShorthandFunctionType",
                                     "useValidAriaRole",
