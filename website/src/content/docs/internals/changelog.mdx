@@ -31,6 +31,12 @@ Read our [guidelines for writing a good changelog entry](https://github.com/biom
   permissions:
     pull-requests: write
   ```
+- The commands `format`, `lint`, `check` and `ci` now accepts two new arguments: `--changed` and `--since`. Use these options when the VCS integration
+  is enabled to process only the files that were changed. Contributed by @simonxabris
+
+  ```shell
+  biome format --write --changed
+  ```
 
 #### Bug fixes
 
